@@ -2,6 +2,7 @@ package hdu_cas_helper
 
 import (
 	"errors"
+	"fmt"
 	"github.com/parnurzeal/gorequest"
 	uuid "github.com/satori/go.uuid"
 	"time"
@@ -16,6 +17,11 @@ type QrLogin struct {
 
 func (q *QrLogin) GetScannerUrl() string {
 	return q.url
+}
+
+func (q *QrLogin) PrintScannerUrl() *QrLogin {
+	fmt.Println(q.url)
+	return q
 }
 
 func (q *QrLogin) GetUUID() string {
