@@ -15,6 +15,10 @@
 
 ## Quick start
 
+```shell
+go get github.com/wujunyi792/hdu-cas-helper
+```
+
 无论登录哪个服务，必须先登录 cas
 
 ### cas login
