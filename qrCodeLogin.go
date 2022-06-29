@@ -45,6 +45,7 @@ func (q *QrLogin) Login() *LoginStatus {
 
 func (q *QrLogin) AsyncLogin(interval time.Duration, retry int) *LoginStatus {
 	for {
+		q.login.err = nil
 		s := q.Login()
 		retry--
 		if s.Error() == nil || retry <= 0 {

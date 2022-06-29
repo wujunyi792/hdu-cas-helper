@@ -15,7 +15,7 @@ func TestLogin(t *testing.T) {
 	}{
 		{
 			name: "test skl login",
-			args: args{cas: PasswordLogin("", "")},
+			args: args{cas: CasPasswordLogin("", "")},
 		},
 	}
 	for _, tt := range tests {
