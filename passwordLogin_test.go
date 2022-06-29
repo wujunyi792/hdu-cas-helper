@@ -21,7 +21,7 @@ func TestPasswordLogin(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			PasswordLogin(tt.args.uname, tt.args.password)
+			CasPasswordLogin(tt.args.uname, tt.args.password)
 		})
 	}
 }

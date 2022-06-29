@@ -42,7 +42,7 @@ func getCookie(resp gorequest.Response, name string) string {
 	return ""
 }
 
-func PasswordLogin(uname, password string) *LoginStatus {
+func CasPasswordLogin(uname, password string) *LoginStatus {
 	ret := &LoginStatus{
 		method:  METHODPASSWORD,
 		tgc:     "",

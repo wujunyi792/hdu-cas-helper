@@ -28,7 +28,7 @@ func Login(cas *LoginStatus) *Skl {
 		err:       nil,
 	}
 	if cas.expired {
-		ret.err = errors.New("cas ticket has been used, please login cas again")
+		ret.err = errors.New("cas ticket has been used or expired, please login cas again")
 		return ret
 	}
 
@@ -69,5 +69,6 @@ func Login(cas *LoginStatus) *Skl {
 		return ret
 	}
 	ret.token = matches[len(matches)-1]
+	ret.casStatus.service = "skl"
 	return ret
 }
