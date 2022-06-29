@@ -22,11 +22,13 @@ go get github.com/wujunyi792/hdu-cas-helper
 无论登录哪个服务，必须先登录 cas
 
 ### cas login
-```Go
-ticker := hducashelper.CasPasswordLogin("", "") // 杭电 CAS 账号密码
 ```
-```Go
-ticker := hducashelper.CasQrCodeLogin().PrintScannerUrl().AsyncLogin(5 * time.Second, 10) // 使用二维码登录， 控制台会输出链接， 使用微信打开连接即可登录
+// 杭电 CAS 账号密码
+ticker := hducashelper.CasPasswordLogin("", "") 
+```
+```
+// 使用二维码登录， 控制台会输出链接， 使用微信打开连接即可登录
+ticker := hducashelper.CasQrCodeLogin().PrintScannerUrl().AsyncLogin(5 * time.Second, 10) 
 ```
 
 获取到 ticket 以后，可以使用这个ticket来登录其他应用
@@ -49,6 +51,51 @@ func main() {
 	}
 	log.Println(sklLogin.GetToken())
 }
+```
+
+### 智慧杭电登录示例
+```Go
+package main
+
+import (
+	hducashelper "github.com/wujunyi792/hdu-cas-helper"
+	"log"
+)
+
+func main() {
+	ticker := hducashelper.CasPasswordLogin("", "") // 杭电 CAS 账号密码
+	//ticker := hducashelper.CasQrCodeLogin().PrintScannerUrl().AsyncLogin(5 * time.Second, 10) // 使用二维码登录， 控制台会输出链接， 使用微信打开连接即可登录
+	iHduLogin := hducashelper.IHduLogin(ticker)
+	if iHduLogin.Error() != nil {
+		log.Fatalln(iHduLogin.Error())
+	}
+	log.Println(iHduLogin.GetCookie())
+}
+```
+
+
+### 新正方教务登录示例
+```Go
+package main
+
+import (
+	hducashelper "github.com/wujunyi792/hdu-cas-helper"
+	"log"
+)
+
+func main() {
+	ticker := hducashelper.CasPasswordLogin("", "") // 杭电 CAS 账号密码
+	//ticker := hducashelper.CasQrCodeLogin().PrintScannerUrl().AsyncLogin(5 * time.Second, 10) // 使用二维码登录， 控制台会输出链接， 使用微信打开连接即可登录
+	newJwLogin := hducashelper.NewJWLogin(ticker)
+	if newJwLogin.Error() != nil {
+		log.Fatalln(newJwLogin.Error())
+	}
+	log.Println(newJwLogin.GetCookie())
+}
 
 ```
+
+
+Now you obtained the necessary credentials to use these third-party applications, enjoy it!
+
 
