@@ -6,7 +6,7 @@ import (
 )
 
 func TestQrCodeLogin(t *testing.T) {
-	c := QrCodeLogin()
+	c := CasQrCodeLogin()
 	t.Log(c.GetScannerUrl())
 	t.Logf(c.AsyncLogin(5*time.Second, 10).tgc)
 }

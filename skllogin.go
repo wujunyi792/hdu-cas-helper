@@ -18,14 +18,18 @@ func (s *Skl) GetToken() string {
 }
 
 func (s *Skl) Error() error {
-	return s.Error()
+	return s.err
 }
 
-func Login(cas *LoginStatus) *Skl {
+func SklLogin(cas *LoginStatus) *Skl {
 	ret := &Skl{
 		token:     "",
 		casStatus: cas,
 		err:       nil,
+	}
+	if cas.Error() != nil {
+		ret.err = cas.Error()
+		return ret
 	}
 	if cas.expired {
 		ret.err = errors.New("cas ticket has been used or expired, please login cas again")
@@ -34,7 +38,7 @@ func Login(cas *LoginStatus) *Skl {
 
 	cli := gorequest.New()
 	// 抓state
-	resp, _, err := cli.RedirectPolicy(request.RedirectFunc).
+	resp, _, err := cli.RedirectPolicy(request.StopAll).
 		Get(SKLLOGINURL + "/api/cas/login?state=&index=&ticket=").
 		End()
 	if len(err) != 0 {
@@ -43,7 +47,7 @@ func Login(cas *LoginStatus) *Skl {
 	}
 	casUrl := resp.Header.Get("Location")
 	// 抓ticket
-	resp, _, err = cli.RedirectPolicy(request.RedirectFunc).
+	resp, _, err = cli.RedirectPolicy(request.StopAll).
 		Get(casUrl).
 		Set("Cookie", cas.tgc).
 		End()
@@ -53,7 +57,7 @@ func Login(cas *LoginStatus) *Skl {
 		return ret
 	}
 	sklUrl := resp.Header.Get("Location")
-	resp, _, err = cli.RedirectPolicy(request.RedirectFunc).
+	resp, _, err = cli.RedirectPolicy(request.StopAll).
 		Get(sklUrl).
 		End()
 	if len(err) != 0 {

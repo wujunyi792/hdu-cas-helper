@@ -16,13 +16,11 @@ func getCli(method, host, uri string, ssl bool) *gorequest.SuperAgent {
 		url = fmt.Sprintf("http://%s%s", host, uri)
 		proto = fmt.Sprintf("http://%s", host)
 	}
-	UA := "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
-
 	switch method {
 	case "get":
 		{
 			return gorequest.New().Get(url).
-				RedirectPolicy(request.RedirectFunc).
+				RedirectPolicy(request.StopAll).
 				Set("User-Agent", UA).
 				Set("Host", host).
 				Set("Origin", proto).
@@ -31,7 +29,7 @@ func getCli(method, host, uri string, ssl bool) *gorequest.SuperAgent {
 	case "post":
 		{
 			return gorequest.New().Post(url).
-				RedirectPolicy(request.RedirectFunc).
+				RedirectPolicy(request.StopAll).
 				Set("User-Agent", UA).
 				Set("Host", host).
 				Set("Origin", proto).

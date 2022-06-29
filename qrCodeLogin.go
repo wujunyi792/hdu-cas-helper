@@ -36,7 +36,7 @@ func (q *QrLogin) Login() *LoginStatus {
 	}
 	casTgc := getCookie(resp, "CASTGC")
 	if len(casTgc) == 0 {
-		q.login.err = errors.New("login failed, maybe hdu service is done, please check manually")
+		q.login.err = errors.New("cas login failed, maybe hdu service is done, please check manually")
 		return q.login
 	}
 	q.login.tgc = casTgc
@@ -55,7 +55,37 @@ func (q *QrLogin) AsyncLogin(interval time.Duration, retry int) *LoginStatus {
 	}
 }
 
-func QrCodeLogin() *QrLogin {
+func CasQrLoginWithUUID(uuid string) *LoginStatus {
+	qr := &QrLogin{
+		login: &LoginStatus{
+			method:  METHODQRCODE,
+			tgc:     "",
+			expired: false,
+			service: "",
+			err:     nil,
+		},
+		confirmed: false,
+		uuid:      uuid,
+	}
+	return qr.Login()
+}
+
+func CasAsyncQrLoginWithUUID(uuid string, interval time.Duration, retry int) *LoginStatus {
+	qr := &QrLogin{
+		login: &LoginStatus{
+			method:  METHODQRCODE,
+			tgc:     "",
+			expired: false,
+			service: "",
+			err:     nil,
+		},
+		confirmed: false,
+		uuid:      uuid,
+	}
+	return qr.AsyncLogin(interval, retry)
+}
+
+func CasQrCodeLogin() *QrLogin {
 	uid := uuid.NewV4().String()
 	return &QrLogin{
 		login: &LoginStatus{

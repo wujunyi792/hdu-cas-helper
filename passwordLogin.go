@@ -71,7 +71,7 @@ func CasPasswordLogin(uname, password string) *LoginStatus {
 
 	casTgc := getCookie(resp, "CASTGC")
 	if len(casTgc) == 0 {
-		ret.err = errors.New("login failed, maybe hdu service is done, please check manually")
+		ret.err = errors.New("cas login failed, maybe hdu service is done, please check manually")
 		return ret
 	}
 	return &LoginStatus{

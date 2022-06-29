@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func RedirectFunc(req gorequest.Request, via []gorequest.Request) error {
+func StopAll(req gorequest.Request, via []gorequest.Request) error {
 	return http.ErrUseLastResponse
 }
