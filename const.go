@@ -12,4 +12,10 @@ const (
 	IHDULOGINURL = "https://i.hdu.edu.cn/tp_up/"
 
 	NEWJWLOGINURL = "https://newjw.hdu.edu.cn/sso/driot4login"
+
+	HDUHELPLOGINURL   = "https://api.hduhelp.com/login/direct/cas"
+	HDUHELPAPPURL     = "https://app.hduhelp.com"
+	HDUHELPOAUTHLOGIN = "https://api.hduhelp.com/oauthLogin/%s/%s"
+
+	HDQGAPPID = "NgZ0Tcc2dtPUz1Ks"
 )
