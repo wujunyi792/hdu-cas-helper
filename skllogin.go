@@ -65,7 +65,7 @@ func SklLogin(cas *LoginStatus) *Skl {
 		return ret
 	}
 	finalLoc := resp.Header.Get("Location")
-	regStr := `token=(.{36}?)[&]*(.*?)$`
+	regStr := `token=(.{36}?)[&]*.*?$`
 	r := regexp.MustCompile(regStr)
 	matches := r.FindStringSubmatch(finalLoc)
 	if len(matches) != 2 {
